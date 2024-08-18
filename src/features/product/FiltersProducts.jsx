@@ -1,23 +1,25 @@
-import { useState } from "react";
 import Select from "../../ui/Select";
 import useTransformedCategories from "../category/useTransformedCategories";
 import SearchField from "../../ui/SearchField";
 
-const sortOptions = [
-  { label: "latest", value: "latest" },
-  { label: "earliest", value: "earliest" },
-];
-
-function FiltersProducts() {
-  const [searchValue, setSearchValue] = useState("");
-  const [sort, setSort] = useState("latest");
-  const [filter, setFilter] = useState("All");
-
+function FiltersProducts({
+  searchValue,
+  onChangeSearchValue,
+  sort,
+  onChangeSort,
+  category,
+  onChangeCategory,
+}) {
   const transformedCategories = useTransformedCategories();
 
-  const filterOptions = [
+  const categoryOptions = [
     { label: "All", value: "All" },
     ...transformedCategories,
+  ];
+
+  const sortOptions = [
+    { label: "latest", value: "latest" },
+    { label: "earliest", value: "earliest" },
   ];
 
   return (
@@ -29,23 +31,21 @@ function FiltersProducts() {
         name="search-input"
         label="search"
         value={searchValue}
-        onChange={(e) => setSearchValue(e.target.value)}
+        onChange={onChangeSearchValue}
       />
       <Select
         label="sort"
         name="sort-products"
         value={sort}
-        onChange={(e) => setSort(e.target.value)}
+        onChange={onChangeSort}
         options={sortOptions}
-        className="select__input"
       />
       <Select
         label="category"
         name="filter-products"
-        value={filter}
-        onChange={(e) => setFilter(e.target.value)}
-        options={filterOptions}
-        className="select__input"
+        value={category}
+        onChange={onChangeCategory}
+        options={categoryOptions}
       />
     </div>
   );
