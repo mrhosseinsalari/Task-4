@@ -50,7 +50,13 @@ function AddProductForm() {
           name="quantity"
           id="product-quantity"
           register={register}
-          validationSchema={{ required: "The quantity is required" }}
+          validationSchema={{
+            required: "The quantity is required",
+            min: {
+              value: 1,
+              message: "The value entered is invalid",
+            },
+          }}
           type="number"
           errors={errors}
         />
